@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* Core surfaces */
+    --background: 220 25% 6%;
+    --foreground: 210 40% 95%;
+
+    --card: 220 22% 9%;
+    --card-foreground: 210 40% 95%;
+
+    --popover: 220 22% 10%;
+    --popover-foreground: 210 40% 95%;
+
+    /* Brand: Electric Blue */
+    --primary: 199 100% 50%;
+    --primary-foreground: 220 25% 6%;
+
+    /* Secondary: Teal-ish */
+    --secondary: 220 20% 14%;
+    --secondary-foreground: 210 40% 90%;
+
+    --muted: 220 18% 12%;
+    --muted-foreground: 215 16% 55%;
+
+    --accent: 199 80% 40%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 18% 16%;
+    --input: 220 18% 14%;
+    --ring: 199 100% 50%;
+
+    --radius: 0.625rem;
+
+    /* Custom semantic tokens */
+    --success: 142 76% 42%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 95% 55%;
+    --warning-foreground: 220 25% 6%;
+
+    --info: 199 100% 50%;
+    --info-foreground: 220 25% 6%;
+
+    --cpu-color: 199 100% 55%;
+    --gpu-color: 280 80% 60%;
+    --ram-color: 142 70% 45%;
+    --storage-color: 38 90% 55%;
+    --psu-color: 0 75% 55%;
+    --case-color: 199 50% 65%;
+    --cooler-color: 180 70% 50%;
+    --mobo-color: 220 60% 65%;
+
+    /* Glass effect tokens */
+    --glass-bg: 220 22% 9% / 0.8;
+    --glass-border: 210 40% 95% / 0.07;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(199 100% 50%), hsl(199 80% 35%));
+    --gradient-card: linear-gradient(145deg, hsl(220 22% 10%), hsl(220 25% 7%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 25% 6%) 0%, hsl(220 30% 9%) 50%, hsl(220 25% 6%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(199 100% 50% / 0.15) 0%, transparent 70%);
+
+    /* Sidebar */
+    --sidebar-background: 220 25% 7%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 199 100% 50%;
+    --sidebar-primary-foreground: 220 25% 6%;
+    --sidebar-accent: 220 20% 13%;
+    --sidebar-accent-foreground: 210 40% 90%;
+    --sidebar-border: 220 18% 14%;
+    --sidebar-ring: 199 100% 50%;
+
+    /* Shadows */
+    --shadow-glow: 0 0 30px hsl(199 100% 50% / 0.2);
+    --shadow-card: 0 4px 24px hsl(220 25% 3% / 0.6);
+    --shadow-elevated: 0 8px 40px hsl(220 25% 3% / 0.8);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--glass-border));
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.6);
+  }
+
+  .tech-border {
+    border: 1px solid hsl(var(--primary) / 0.3);
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.1), inset 0 0 15px hsl(var(--primary) / 0.03);
+  }
+
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    color: hsl(var(--primary));
+  }
+
+  .score-bar {
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(199 80% 35%));
+    border-radius: 2px;
+    height: 4px;
+  }
+
+  .chip-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid currentColor;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+}
