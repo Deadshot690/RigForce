@@ -1,6 +1,6 @@
 import { useRef, Suspense, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
+import { OrbitControls, Float, Environment, ContactShadows } from "@react-three/drei";
 import type { PCBuild } from "../data/types";
 import * as THREE from "three";
 
@@ -8,12 +8,12 @@ import * as THREE from "three";
 // PERFORMANCE TIER → ARGB COLOR PALETTE
 // ============================================================
 const TIER_ARGB: Record<string, { primary: string; secondary: string; pulse: string }> = {
-  Entry:       { primary: "#4488ff", secondary: "#2244aa", pulse: "#3366cc" },
+  Entry: { primary: "#4488ff", secondary: "#2244aa", pulse: "#3366cc" },
   "Mid-Range": { primary: "#00ff88", secondary: "#00aa55", pulse: "#00cc66" },
-  "High-End":  { primary: "#00eeff", secondary: "#0088bb", pulse: "#00ccdd" },
-  Enthusiast:  { primary: "#cc44ff", secondary: "#770099", pulse: "#aa22ee" },
-  Extreme:     { primary: "#ff6600", secondary: "#ff2200", pulse: "#ffaa00" },
-  None:        { primary: "#00bfff", secondary: "#005577", pulse: "#0099cc" },
+  "High-End": { primary: "#00eeff", secondary: "#0088bb", pulse: "#00ccdd" },
+  Enthusiast: { primary: "#cc44ff", secondary: "#770099", pulse: "#aa22ee" },
+  Extreme: { primary: "#ff6600", secondary: "#ff2200", pulse: "#ffaa00" },
+  None: { primary: "#00bfff", secondary: "#005577", pulse: "#0099cc" },
 };
 
 // ============================================================
@@ -21,17 +21,17 @@ const TIER_ARGB: Record<string, { primary: string; secondary: string; pulse: str
 // ============================================================
 function getCasePalette(caseName: string, caseBrand: string) {
   const name = (caseName + caseBrand).toLowerCase();
-  if (name.includes("lian li"))   return { body: "#1c1c1e", trim: "#e0e0e0", accent: "#00e5ff", logo: "#ffffff" };
-  if (name.includes("nzxt"))      return { body: "#1a1a1a", trim: "#222222", accent: "#ee0055", logo: "#ffffff" };
-  if (name.includes("fractal"))   return { body: "#2a2a2e", trim: "#888",    accent: "#aaccff", logo: "#cccccc" };
-  if (name.includes("corsair"))   return { body: "#0d0d14", trim: "#ffec00", accent: "#ffec00", logo: "#ffdd00" };
-  if (name.includes("be quiet"))  return { body: "#111111", trim: "#f5a623", accent: "#f5a623", logo: "#f5a623" };
-  if (name.includes("phanteks"))  return { body: "#181825", trim: "#cc44ff", accent: "#cc44ff", logo: "#cc44ff" };
+  if (name.includes("lian li")) return { body: "#1c1c1e", trim: "#e0e0e0", accent: "#00e5ff", logo: "#ffffff" };
+  if (name.includes("nzxt")) return { body: "#1a1a1a", trim: "#222222", accent: "#ee0055", logo: "#ffffff" };
+  if (name.includes("fractal")) return { body: "#2a2a2e", trim: "#888", accent: "#aaccff", logo: "#cccccc" };
+  if (name.includes("corsair")) return { body: "#0d0d14", trim: "#ffec00", accent: "#ffec00", logo: "#ffdd00" };
+  if (name.includes("be quiet")) return { body: "#111111", trim: "#f5a623", accent: "#f5a623", logo: "#f5a623" };
+  if (name.includes("phanteks")) return { body: "#181825", trim: "#cc44ff", accent: "#cc44ff", logo: "#cc44ff" };
   if (name.includes("cooler master")) return { body: "#0f0f0f", trim: "#cc0000", accent: "#ff2200", logo: "#ff2200" };
-  if (name.includes("thermaltake"))   return { body: "#101014", trim: "#00aaff", accent: "#00aaff", logo: "#44ccff" };
-  if (name.includes("asus"))      return { body: "#18181c", trim: "#c8ab14", accent: "#c8ab14", logo: "#ddaa00" };
-  if (name.includes("deepcool"))  return { body: "#12121a", trim: "#3399ff", accent: "#33aaff", logo: "#55bbff" };
-  if (name.includes("antec"))     return { body: "#1a1010", trim: "#cc3300", accent: "#ff4400", logo: "#ff6633" };
+  if (name.includes("thermaltake")) return { body: "#101014", trim: "#00aaff", accent: "#00aaff", logo: "#44ccff" };
+  if (name.includes("asus")) return { body: "#18181c", trim: "#c8ab14", accent: "#c8ab14", logo: "#ddaa00" };
+  if (name.includes("deepcool")) return { body: "#12121a", trim: "#3399ff", accent: "#33aaff", logo: "#55bbff" };
+  if (name.includes("antec")) return { body: "#1a1010", trim: "#cc3300", accent: "#ff4400", logo: "#ff6633" };
   return { body: "#1a1a2e", trim: "#00bfff", accent: "#00bfff", logo: "#ffffff" };
 }
 
@@ -274,26 +274,8 @@ function CaseShell({
         <cylinderGeometry args={[0.006, 0.006, 0.003, 16]} />
         <meshStandardMaterial color={pal.accent} emissive={pal.accent} emissiveIntensity={1.2} />
       </mesh>
-      {/* Side frame border */}
-      <mesh position={[w / 2 - t / 2, 0, 0]}>
-        <boxGeometry args={[t * 0.8, h, d]} />
-        <meshStandardMaterial color={pal.trim} metalness={0.9} roughness={0.1} />
-      </mesh>
-      {/* Tempered glass side panel — ultra transparent */}
-      <mesh position={[w / 2 + 0.001, 0, 0]}>
-        <boxGeometry args={[0.004, h - 0.01, d - 0.01]} />
-        <meshPhysicalMaterial
-          color={pal.accent}
-          transparent
-          opacity={0.08}
-          roughness={0.0}
-          metalness={0.0}
-          transmission={0.97}
-          ior={1.5}
-          reflectivity={0.2}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
+      {/* Side frame border (removed to open case) */}
+      {/* Tempered glass side panel — Removed for better interior visibility */}
       {/* Bottom vent glow */}
       <mesh position={[0, -h / 2 + 0.005, d / 2 - 0.05]}>
         <boxGeometry args={[w * 0.6, 0.003, 0.04]} />
@@ -617,19 +599,20 @@ export default function PCPreview3D({
         <pointLight position={[1, -1, 1]} intensity={0.25} color="#7700ff" />
 
         <Suspense fallback={null}>
-          <PCScene build={build} tier={tier} />
-          <ContactShadows position={[0, -0.28, 0]} opacity={0.5} blur={2.5} />
+          <Float rotationIntensity={0.2} floatIntensity={0.6} speed={2}>
+            <PCScene build={build} tier={tier} />
+            <ContactShadows position={[0, -0.28, 0]} opacity={0.7} scale={2} blur={2.5} far={0.8} />
+          </Float>
           <Environment preset="city" />
         </Suspense>
 
         <OrbitControls
           enablePan={false}
           minDistance={0.5}
-          maxDistance={1.8}
-          dampingFactor={0.08}
+          maxDistance={2.5}
+          dampingFactor={0.05}
           enableDamping
-          autoRotate
-          autoRotateSpeed={0.5}
+          autoRotate={false}
         />
       </Canvas>
 
