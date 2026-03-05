@@ -1,7 +1,7 @@
-# Build Master Studio
+# RigForce
 
 ## Overview
-Build Master Studio is a modern web application for planning, previewing, and optimizing PC builds. It provides a user-friendly interface to select components, check compatibility, estimate performance, and manage your build budget.
+RigForce is a modern web application for planning, previewing, and optimizing PC builds. It provides a user-friendly interface to select components, check compatibility, estimate performance, and manage your build budget.
 
 ## Purpose
 The purpose of Build Master Studio is to simplify the process of building custom PCs by offering:
