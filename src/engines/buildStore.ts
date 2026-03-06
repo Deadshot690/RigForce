@@ -42,7 +42,13 @@ export function formatINR(amount: number): string {
 }
 
 export function useBuildStore() {
-  const [currentBuild, setCurrentBuild] = useState<PCBuild>(createEmptyBuild());
+  const [currentBuild, setCurrentBuild] = useState<PCBuild>(() => {
+    try {
+      const stored = localStorage.getItem("current_build");
+      if (stored) return JSON.parse(stored);
+    } catch {}
+    return createEmptyBuild();
+  });
   const [savedBuilds, setSavedBuilds] = useState<PCBuild[]>(() => {
     try {
       const stored = localStorage.getItem("pc_builds");
